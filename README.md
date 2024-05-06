@@ -74,6 +74,9 @@ Azure Container Instances can bind the container to a private virtual network to
 > [!NOTE]
 > This will require delegation of the subnet to the `Microsoft.ContainerInstance/containerGroups` service. You may want to create an additional subnet in your virtual network for this. The CLI command enables passing of parameters to create the subnet, e.g., `--subnet-address-prefix`.
 
+> [!NOTE]
+> Outbound virtual network rules may restrict access to dev tunnels resources. See the [Dev Tunnels documentation](https://learn.microsoft.com/en-us/azure/developer/dev-tunnels/security#domains) for a list of outbound hosts required.
+
 #### Mounting a Git Repository
 
 One handy feature of Azure Container Instances is the ability to automatically clone a git repository to the machine.  You can specify additional args:
