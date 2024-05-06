@@ -24,10 +24,11 @@ Review the [Dockerfile](Dockerfile) for all parameters. No parameters are requir
 Here's an example of using `docker run` to launch the container on a host:
 
 ```bash
-docker run --rm --name mytunnel \
+docker run --name mytunnel \
   -e VSCODE_TUNNEL_AUTH=github \
   -e VSCODE_TUNNEL_NAME=mytunnel \
-  -e VSCODE_EXTENSIONS=humao.rest-client,GitHub.copilot-chat ghcr.io/chrisromp/vscodetunnel:latest
+  -e VSCODE_EXTENSIONS=humao.rest-client,GitHub.copilot-chat \
+  ghcr.io/chrisromp/vscodetunnel:latest
 ```
 
 This example will launch the container using GitHub authentication with the name `mytunnel` and it will install the [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) and [GitHub Copilot Chat](https://marketplace.visualstudio.com/items?itemName=github.copilot-chat) extensions.
