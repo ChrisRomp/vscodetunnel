@@ -5,7 +5,7 @@ This Docker image will create an instance of Visual Studio Code Server with the 
 This was created to enable quick access to demo (_non-production!_) environments where you may not be able to access the environment from the public internet (e.g., behind an Azure virtual network).
 
 > [!CAUTION]
-> Do not install this in a production environment. The security of this configuraiton has not been validated.
+> Do not install this in a production environment. The security of this configuration has not been validated.
 
 ## Configuration
 
@@ -72,7 +72,7 @@ az container delete -g $RG --name "$CONTAINER_NAME" --yes
 Azure Container Instances can bind the container to a private virtual network to enable accessing private network resources for testing. You can provide it a virtual network name and a subnet name, or a subnet resource ID. See the full command syntax in the [documentation](https://learn.microsoft.com/en-us/cli/azure/container?view=azure-cli-latest#az-container-create).
 
 > [!NOTE]
-> This will require delegation of the subnet to the `Microsoft.ContainerInstance/containerGroups` service. You may want to create an additional subnet in your virutal network for this. The CLI command enables passing of parameters to create the subnet, e.g., `--subnet-address-prefix`.
+> This will require delegation of the subnet to the `Microsoft.ContainerInstance/containerGroups` service. You may want to create an additional subnet in your virtual network for this. The CLI command enables passing of parameters to create the subnet, e.g., `--subnet-address-prefix`.
 
 #### Mounting a Git Repository
 
@@ -86,7 +86,7 @@ One handy feature of Azure Container Instances is the ability to automatically c
 
 Once the container is running, view the container logs. There you will see the device login URL for Microsoft or GitHub, along with a device code. Follow the instructions in your local web browser to authenticate the tunnel.
 
-Once the authenticaiton is completed, view the container logs again. You will see `Open this link in your browser` followed by a URL to access the server. Open that URL in your local web browser. You will need to use the same authentication as the previous step.
+Once the authentication is completed, view the container logs again. You will see `Open this link in your browser` followed by a URL to access the server. Open that URL in your local web browser. You will need to use the same authentication as the previous step.
 
 ## Disclaimer
 
