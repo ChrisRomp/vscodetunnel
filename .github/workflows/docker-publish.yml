@@ -8,12 +8,17 @@ name: Docker Build
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - '*.md'
     # Publish semver tags as releases.
     tags:
       - 'v*.*'
       - 'v*.*.*'
   pull_request:
     branches: [ "main" ]
+    paths-ignore:
+      - '*.md'
+  workflow_dispatch:
 
 env:
   # Use docker.io for Docker Hub if empty

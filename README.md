@@ -27,7 +27,7 @@ Here's an example of using `docker run` to launch the container on a host:
 docker run --rm --name mytunnel \
   -e VSCODE_TUNNEL_AUTH=github \
   -e VSCODE_TUNNEL_NAME=mytunnel \
-  -e VSCODE_EXTENSIONS=humao.rest-client,GitHub.copilot-chat myreg.azurecr.io/vscodetunnel:latest
+  -e VSCODE_EXTENSIONS=humao.rest-client,GitHub.copilot-chat ghcr.io/chrisromp/vscodetunnel:latest
 ```
 
 This example will launch the container using GitHub authentication with the name `mytunnel` and it will install the [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) and [GitHub Copilot Chat](https://marketplace.visualstudio.com/items?itemName=github.copilot-chat) extensions.
@@ -43,7 +43,7 @@ An easy way to launch this in an Azure network is using [Azure Container Instanc
 # Some parameters
 RG=my-resource-group # Existing resource group
 LOC=westus3
-IMAGE=myreg.azurecr.io/vscodetunnel:latest
+IMAGE=ghcr.io/chrisromp/vscodetunnel:latest
 CONTAINER_NAME=acr-tunnel1
 REG_USER="anonymous" # prevents auth prompt
 REG_PASS="."
@@ -80,3 +80,9 @@ One handy feature of Azure Container Instances is the ability to automatically c
 Once the container is running, view the container logs. There you will see the device login URL for Microsoft or GitHub, along with a device code. Follow the instructions in your local web browser to authenticate the tunnel.
 
 Once the authenticaiton is completed, view the container logs again. You will see `Open this link in your browser` followed by a URL to access the server. Open that URL in your local web browser. You will need to use the same authentication as the previous step.
+
+## Disclaimer
+
+This package is provided for testing and demonstration purposes only. No support is provided (but please feel free to open an issue if you find a bug).
+
+Please see the [MIT LICENSE](LICENSE) for full text and terms.
