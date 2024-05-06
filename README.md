@@ -4,7 +4,7 @@ This Docker image will create an instance of Visual Studio Code Server with the 
 
 This was created to enable quick access to demo (_non-production!_) environments where you may not be able to access the environment from the public internet (e.g., behind an Azure virtual network).
 
-> ![CAUTION]
+> [!CAUTION]
 > Do not install this in a production environment. The security of this configuraiton has not been validated.
 
 ## Configuration
