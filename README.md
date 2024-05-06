@@ -31,6 +31,8 @@ docker run --name mytunnel \
   ghcr.io/chrisromp/vscodetunnel:latest
 ```
 
+You can add the `--detach` argument to have the container run in the background. See the full `docker run` command syntax in the [documentation](https://docs.docker.com/reference/cli/docker/container/run/#options).
+
 This example will launch the container using GitHub authentication with the name `mytunnel` and it will install the [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) and [GitHub Copilot Chat](https://marketplace.visualstudio.com/items?itemName=github.copilot-chat) extensions.
 
 ### Azure Container Instances
@@ -46,11 +48,9 @@ RG=my-resource-group # Existing resource group
 LOC=westus3
 IMAGE=ghcr.io/chrisromp/vscodetunnel:latest
 CONTAINER_NAME=acr-tunnel1
-REG_USER="anonymous" # prevents auth prompt
-REG_PASS="."
 VNET=vnet-name # optional - for VNet integration
 SUBNET=subnet-name # optional/required with VNet - will be delegated to ACI
-VSCODE_TUNNEL_NAME=mytunnel
+VSCODE_TUNNEL_NAME=$CONTAINER_NAME # reuse container name or change
 VSCODE_TUNNEL_AUTH=microsoft
 VSCODE_EXTENSIONS=humao.rest-client,GitHub.copilot-chat
 
@@ -58,7 +58,6 @@ VSCODE_EXTENSIONS=humao.rest-client,GitHub.copilot-chat
 az container create -g $RG --name "$CONTAINER_NAME" -l $LOC \
   --image $IMAGE \
   --vnet "$VNET" --subnet "$SUBNET" \
-  --registry-username "$REG_USER" --registry-password "$REG_PASS" \
   --environment-variables VSCODE_TUNNEL_NAME=$VSCODE_TUNNEL_NAME VSCODE_TUNNEL_AUTH=$VSCODE_TUNNEL_AUTH VSCODE_EXTENSIONS=$VSCODE_EXTENSIONS
 
 # Get logs to see login code and/or URL
@@ -67,6 +66,13 @@ az container logs -g $RG --name "$CONTAINER_NAME"
 # Cleanup - delete the container instance
 az container delete -g $RG --name "$CONTAINER_NAME" --yes
 ```
+
+#### Virtual Network Integration
+
+Azure Container Instances can bind the container to a private virtual network to enable accessing private network resources for testing. You can provide it a virtual network name and a subnet name, or a subnet resource ID. See the full command syntax in the [documentation](https://learn.microsoft.com/en-us/cli/azure/container?view=azure-cli-latest#az-container-create).
+
+> [!NOTE]
+> This will require delegation of the subnet to the `Microsoft.ContainerInstance/containerGroups` service. You may want to create an additional subnet in your virutal network for this. The CLI command enables passing of parameters to create the subnet, e.g., `--subnet-address-prefix`.
 
 #### Mounting a Git Repository
 
