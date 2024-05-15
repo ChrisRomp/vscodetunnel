@@ -37,8 +37,12 @@ RUN addgroup -g ${USER_GID} ${USER_NAME} && \
 RUN addgroup ${USER_NAME} wheel
 RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/wheel
 
+# Copy files from userhome to /home/${USER_NAME}
+COPY --chown=${USER_UID}:${USER_GID} ./userhome/* /home/${USER_NAME}
+RUN chmod -R 664 /home/${USER_NAME}
+
 # Workspace config
-ARG VSCODE_WORKSPACE_DIR=/workspace
+ARG VSCODE_WORKSPACE_DIR=/home/${USER_NAME}/work
 ENV VSCODE_WORKSPACE_DIR=${VSCODE_WORKSPACE_DIR}
 RUN mkdir -p ${VSCODE_WORKSPACE_DIR} && chown ${USER_UID}:${USER_GID} ${VSCODE_WORKSPACE_DIR}
 WORKDIR ${VSCODE_WORKSPACE_DIR}
