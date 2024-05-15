@@ -88,7 +88,7 @@ jobs:
         with:
           context: .
           platforms: linux/amd64
-          push: ${{ github.event_name != 'pull_request' }} || github.event.inputs.push-image
+          push: ${{ github.event_name != 'pull_request' || github.event.inputs.push-image }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
