@@ -21,7 +21,7 @@ on:
   workflow_dispatch:
     inputs:
       push-image:
-        description: 'Push the Docker image even on PRs'
+        description: 'Push the Docker image to the registry'
         required: false
         default: false
         type: boolean
