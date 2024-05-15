@@ -8,7 +8,7 @@ LABEL org.opencontainers.image.source = "https://github.com/ChrisRomp/vscodetunn
 # Install packages
 RUN apk update && \
     apk add --no-cache \
-    buildah ca-certificates curl git gnupg jq less make nodejs npm openssl unzip vim wget zip sudo iproute2 bind-tools python3 py3-pip && \
+    bash buildah ca-certificates curl git gnupg jq less make nodejs npm openssl unzip vim wget zip sudo iproute2 bind-tools python3 py3-pip && \
     rm -rf /var/cache/apk/*
 
 # Download and install VS Code CLI
@@ -31,7 +31,7 @@ ARG USER_GID=1000
 ARG USER_NAME=vscode
 RUN addgroup -g ${USER_GID} ${USER_NAME} && \
     adduser --uid ${USER_UID} --ingroup ${USER_NAME} --ingroup ${USER_NAME} \
-    --gecos "${USER_NAME}" --disabled-password ${USER_NAME}
+    --shell /bin/bash --gecos "${USER_NAME}" --disabled-password ${USER_NAME}
 
 # Enble sudo for user
 RUN addgroup ${USER_NAME} wheel
