@@ -14,7 +14,7 @@ Review the [Dockerfile](Dockerfile) for all parameters. No parameters are requir
 | Parameter | Default | Description |
 | --- | --- | --- |
 | `VSCODE_TUNNEL_AUTH` | `microsoft` | Remote Tunnels can authenticate with Microsoft or GitHub credentials. You can enter `microsoft` or `github` here. |
-| `VSCODE_TUNNEL_NAME` | `hostname` | The name of the remote tunnel. Defaults to the container's hostname. |
+| `VSCODE_TUNNEL_NAME` | `hostname` | The name of the remote tunnel. Defaults to the container's hostname. Max 20 chars. |
 | `VSCODE_EXTENSIONS` | none | Comma-separated extension IDs to be installed by default. You can still manually install extensions. E.g.: `humao.rest-client,GitHub.copilot-chat` |
 
 ## Running the Tunnel Server
@@ -65,6 +65,9 @@ az container logs -g $RG --name "$CONTAINER_NAME"
 
 # Cleanup - delete the container instance
 az container delete -g $RG --name "$CONTAINER_NAME" --yes
+
+# Delete the subnet if it's no longer needed
+az network vnet subnet delete -g $RG --name $SUBNET --vnet-name $VNET
 ```
 
 #### Virtual Network Integration
