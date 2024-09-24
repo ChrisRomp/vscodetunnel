@@ -1,9 +1,9 @@
 ARG BASE_IMAGE=alpine:3.19
 FROM ${BASE_IMAGE}
 
-LABEL org.opencontainers.image.authors="Chris Romp"
+LABEL org.opencontainers.image.authors="Theodoros Symeonidis"
 LABEL org.opencontainers.image.description="A containerized implementation of the Visual Studio Code Remote Tunnels server."
-LABEL org.opencontainers.image.source = "https://github.com/ChrisRomp/vscodetunnel"
+LABEL org.opencontainers.image.source = "https://github.com/tur11ng/vscode-tunnel"
 
 # Install packages
 RUN apk update && \
@@ -11,9 +11,13 @@ RUN apk update && \
     bash buildah ca-certificates curl git gnupg jq less make nodejs npm openssl unzip vim wget zip sudo iproute2 bind-tools python3 py3-pip && \
     rm -rf /var/cache/apk/*
 
-# Download and install VS Code CLI
-RUN curl -sSLf 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64' \
-    --output /tmp/vscode-cli.tar.gz && \
+# Download and install VS Code CLI based on architecture
+ARG TARGETARCH
+RUN if [ "$TARGETARCH" = "arm64" ]; then \
+        curl -sSLf 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-arm64' --output /tmp/vscode-cli.tar.gz; \
+    else \
+        curl -sSLf 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64' --output /tmp/vscode-cli.tar.gz; \
+    fi && \
     tar -xf /tmp/vscode-cli.tar.gz -C /usr/local/bin && \
     rm -f /tmp/vscode-cli.tar.gz
 
@@ -33,7 +37,7 @@ RUN addgroup -g ${USER_GID} ${USER_NAME} && \
     adduser --uid ${USER_UID} --ingroup ${USER_NAME} --ingroup ${USER_NAME} \
     --shell /bin/bash --gecos "${USER_NAME}" --disabled-password ${USER_NAME}
 
-# Enble sudo for user
+# Enable sudo for user
 RUN addgroup ${USER_NAME} wheel
 RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/wheel
 
