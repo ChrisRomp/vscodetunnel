@@ -1,9 +1,9 @@
 ARG BASE_IMAGE=alpine:3.19
 FROM ${BASE_IMAGE}
 
-LABEL org.opencontainers.image.authors="Theodoros Symeonidis"
+LABEL org.opencontainers.image.authors="Chris Romp"
 LABEL org.opencontainers.image.description="A containerized implementation of the Visual Studio Code Remote Tunnels server."
-LABEL org.opencontainers.image.source = "https://github.com/tur11ng/vscode-tunnel"
+LABEL org.opencontainers.image.source = "https://github.com/ChrisRomp/vscodetunnel"
 
 # Install packages
 RUN apk update && \
